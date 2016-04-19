@@ -1,0 +1,51 @@
+﻿@model IEnumerable<ShoppingApplication.Models.Order>
+
+@{
+    ViewBag.Title = "Orders";
+}
+
+<h2>LIST OF ORDERS</h2>
+
+<p>
+    @Html.ActionLink("Create Orders", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.customer.firstname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ostatus.status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.orderDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.customer.firstname)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ostatus.status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.orderDate)
+        </td>
+        <td>
+        @if (!(item.Ostatus.status=="Shipped" || item.Ostatus.status=="Processed" ))
+             { 
+            @Html.ActionLink("Edit", "Edit", new { id=item.orderId }) 
+            @Html.Raw("|");
+            @Html.ActionLink("Delete", "Delete", new { id = item.orderId })
+                 @Html.Raw("|");
+            }
+            @Html.ActionLink("Details", "Details", new { id=item.orderId }) 
+           
+        </td>
+    </tr>
+}
+
+</table>

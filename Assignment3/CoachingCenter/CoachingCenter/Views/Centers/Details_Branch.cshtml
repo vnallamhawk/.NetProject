@@ -1,0 +1,57 @@
+﻿@model List<CoachingCenter.Models.Branch>
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    @*<h4>Center</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.address)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.address)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.city)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.city)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.location)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.location)
+            </dd>
+
+        </dl>*@
+
+
+    @foreach (var item in Model)
+    {
+
+        <h2>LIST OF BRANCHES</h2>
+
+        <div>
+            <h4>Address: @item.address</h4>
+            <span>City: @item.city</span>
+            <p>Location: @item.name</p>
+            <hr />
+
+        </div>
+    }
+</div>
+@*<p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>*@

@@ -1,0 +1,154 @@
+﻿@model ShoppingApplication.ViewModel.ProductOrders
+
+@{
+    ViewBag.Title = "List Of Customers";
+}
+
+<h2>CUSTOMER LIST</h2>
+
+<p>
+    @Html.ActionLink("Create Customer", "Create")
+</p>
+<table class="table">
+    <tr>
+    
+        <th>Last Name</th>
+        <th>First Name</th>
+        <th>Mobile</th>
+        <th>e-mail</th>
+    </tr>
+    @foreach (var item in Model.Customers)
+    {
+        string selectedRow = "";
+        Boolean Checking = false;
+        if (item.customerId == ViewBag.CustomerId)
+        {
+            selectedRow = "selectedrow";
+        }
+        <tr class="@selectedRow" valign="top">
+
+            <td>
+                @item.lastname
+            </td>
+            <td>
+                @item.firstname
+            </td>
+            <td>
+                @item.mobile
+            </td>
+            <td>
+                @item.email
+            </td>
+            <td>
+                @*@Html.ActionLink("Select", "Index", new { id = item.customerId }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = item.customerId })|
+                    @Html.ActionLink("Details", "Details", new { id = item.customerId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.customerId })*@
+
+
+
+               
+
+
+
+            </td>
+
+
+            @foreach (var items in item.Orders)
+            {
+
+               
+                if (item.customerId == items.Custid && Checking==false)
+                {
+                    Checking = true;
+
+                    <td>
+
+                       
+                            <button id="Delete" type="submit" disabled>Delete</button>
+                 
+                     
+                            <button id="Edit" type="submit" disabled>Edit</button>
+                        
+                     
+                            <button id="Select" type="submit" onclick="location.href='@Url.Action("Select", "Customers/Index", new { customerId = item.customerId })'">Order Details</button>
+               
+
+
+                            <button id="Details" type="submit" onclick="location.href='@Url.Action("Details", "Customers", new { id = item.customerId })'">Customer Details</button>
+
+
+
+                    </td>
+
+
+                
+
+
+
+
+
+                }
+
+            }
+            @if (Checking == false)
+            {
+                <td>
+                  
+                        <button id="Delete" type="submit" onclick="location.href='@Url.Action("Delete", "Customers", new { id = item.customerId })'">Delete</button>
+              
+
+                 
+                        <button id="Edit" type="submit" onclick="location.href='@Url.Action("Edit", "Customers", new { id = item.customerId })'">Edit</button>
+                
+                    <button id="Select" type="submit" onclick="location.href='@Url.Action("Select", "Customers/Index", new { customerId = item.customerId })'">Order Details</button> 
+
+
+                 
+
+                        <button id="Details" type="submit" onclick="location.href='@Url.Action("Details", "Customers", new { id = item.customerId })'">Customer Details</button>
+                 
+
+
+
+
+                </td>
+            }
+        </tr>
+
+    }
+</table>
+
+
+@if (Model.Orders != null)
+{
+    <h3>List Of  Orderes under the Customer</h3>
+    <table>
+        <tr>
+            <th>Order Date</th>
+            <th>OrderStatus</th>
+        </tr>
+
+        @foreach (var item in Model.Orders)
+        {
+            string selectedRow = "";
+            if (item.orderId == ViewBag.id)
+            {
+                selectedRow = "selectedrow";
+            }
+            <tr class="@selectedRow">
+                @*<td>
+                    @Html.ActionLink("Student List", "Index", new { OrderId = item.orderId})
+                </td>*@
+                <td>
+                    @item.orderDate
+                </td>
+                <td>
+                    @item.Ostatus.status
+                </td>
+              
+            </tr>
+        }
+
+    </table>
+}

@@ -1,0 +1,122 @@
+﻿@model ShoppingApplication.ViewModel.ProductOrders
+
+
+@{
+    ViewBag.Title = "Products";
+}
+
+<h2>PRODUCT LIST</h2>
+
+<p>
+    @Html.ActionLink("Create Product", "Create")
+</p>
+<table class="table">
+    <tr>
+
+        <th>Name</th>
+        <th>Category</th>
+        <th>Price</th>
+    </tr>
+
+        
+    @foreach (var item in Model.Products)
+    {
+        Boolean loop = false;
+        string selectedRow = "";
+        //Boolean Checking = false;
+        if (item.productId == ViewBag.ProductId)
+        {
+            selectedRow = "selectedrow";
+        }
+        <tr class="@selectedRow" valign="top">
+
+            <td>
+                @item.name
+            </td>
+            <td>
+                @item.type
+            </td>
+            <td>
+                @item.price
+            </td>
+
+
+            @foreach (var order in item.Orders)
+            {
+
+                if (order != null && loop == false)
+                {
+                    loop = true;
+                    <td>
+                
+                            <button id="Delete" type="submit" disabled>Delete</button>
+                    
+
+                        <button id="Edit" type="submit" onclick="location.href='@Url.Action("Edit", "Products" , new { id = item.productId })'">Edit</button>
+                   
+                    
+                            <button id="Select" type="submit" onclick="location.href='@Url.Action("Select", "Products/Index", new { productId = item.productId })'">Order Details</button>
+                   
+
+                            <button id="Details" type="submit" onclick="location.href='@Url.Action("Details", "Products", new { id = item.productId })'">Product Details</button>
+            
+                    </td>
+                }
+            }
+            @if (loop == false)
+            {
+                <td>
+                  
+                        <button id="Delete" type="submit" onclick="location.href='@Url.Action("Delete", "Products", new { id = item.productId })'">Delete</button>
+               
+
+                 
+                        <button id="Edit" type="submit" onclick="location.href='@Url.Action("Edit", "Products", new { id = item.productId })'">Edit</button>
+               
+                
+                        <button id="Select" type="submit" onclick="location.href='@Url.Action("Select", "Products/Index", new { productId = item.productId })'">Order Details</button>
+                   
+
+                
+                        <button id="Details" type="submit" onclick="location.href='@Url.Action("Details", "Products", new { id = item.productId })'">Product Details</button>
+                  
+                </td>
+            }   
+        </tr>
+    }
+    
+</table>
+
+@if (Model.Orders != null)
+{
+    <h3>List Of  Orders for the Product</h3>
+    <table>
+        <tr>
+            <th>Order Date</th>
+            <th>OrderStatus</th>
+        </tr>
+
+        @foreach (var item in Model.Orders)
+        {
+            string selectedRow = "";
+            if (item.orderId == ViewBag.id)
+            {
+                selectedRow = "selectedrow";
+            }
+            <tr class="@selectedRow">
+                @*<td>
+                        @Html.ActionLink("Student List", "Index", new { OrderId = item.orderId})
+                    </td>*@
+                <td>
+                    @item.orderDate
+                </td>
+                <td>
+                    @item.Ostatus.status
+                </td>
+
+            </tr>
+        }
+
+    </table>
+}
+
